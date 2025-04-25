@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DCSA Caloocan</title>
+    <link rel="icon" type="image/jpg" href="datamex.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="about.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="datamex.jpg" alt="datamex logo">
+        <h2>DCSA Caloocan Branch</h2>
+        <a href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="studentok.html"><i class="fas fa-user-graduate"></i> Student Info</a>
+        <a href="annouce.html"><i class="fas fa-bullhorn"></i> Announcement</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="admin.html"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    </div>
+    <button class="toggle-btn" onclick="toggleSidebar()">^</button>
+    <div class="content">
+        <h1>About Page</h1>
+        <div id="banner">
+            <video width="700" controls autoplay>
+                <source src="datamexV.mp4" type="video/mp4">
+            </video>
+    </div>
+        <div class="container right">
+            <div class="description">
+                <strong><p>Welcome to the DATAMEX </p></strong>
+                <p>Student Info Announcement S.Y. 2022-2023 SCHOOL ADMISSION NOW OPEN FORTRATION Contact Log Out Consider this your digital command center, where you can access vital resources, stay informed about crucial announcements, and connect with your learning community. Take a moment to familiarize yourself with the layout and features. You'll find that each section is thoughtfully organized to maximize your efficiency and productivity.</p>
+                <br>
+                <p><p>First and foremost, we strongly encourage you to explore the 'Announcements' section. This is where you'll find real-time updates regarding course schedules, upcoming events, important deadlines, and any urgent information that may impact your academic journey. Staying informed is paramount to your success, and this section ensures you're always in the loop.</p></p>
+            </div>
+        </div>
+    
+        <div class="container left">
+            <div class="description">
+                <h3>HISTORY OF DATAMEX</h3>
+                <br>
+                <p>In 25 October 1978, former city council of makati and proprietor by name of Oscar M. Ibay the DATAMEX computer tutorial services. The first campus was established in Cartimar Shopping Center, Taft Avenue, Pasay City followed by its second campus as COBOL, Fortran, RPG, BASIC Language, Assemble Language and Pascal. The course leading to the Bachelor of Science in Computer Science and Two Associate in Computer Secretarial Course.</p>
+                <br>
+                    <p>In response to the growing needs to Computer Education, DATAMEX a non-sectarian and stock educational institution was incorporated and registered in 1984 under the trade name of DATAMEX Computer School and was advertently elevated to DATAMEX Computer College 1993.</p>
+                    <br>
+                    <p>Having earned recognition from the Commission on Higher Education (CHED) and Technical Education and Skills Development, DATAMEX Institute of Computer Technology offers an undergraduate degree course in computer science as well as vocational-technical computer courses as Two-year Integreted Computer Programming, Two-year Integrated Hardware Servicing and two years integrated Information Management.</p>
+                    <br>
+                    <p>With an increasing demands for computer literacy to fill the needs of technology advancement, DATAMEX further sought an approval of CHED and TESDA to offer additional courses such as Two-year Integrated Hotel and Restaurant Management, Two-year Integrated Health Care Service, Two-year Integrated Computer Animation, Three-year ladderized other short courses like Caregiver, Call Center, etc that are expected to gain full recognitaion.</p>
+                    <br>
+                    <p>For the past two decades, DATAMEX, a 100% Filipino owned Computer School succesful operating in the Philippine takes pride in its relentless effort for academic excellence. With the governement's accelerated economic recovery program, the demand for trained and skilled personnel was greater that ever.</p>
+            </div>
+        </div>
+        <div class="container-mission">
+            <h1>Our Mission, Vision & Hymn</h1>
+        
+            <div class="mvh-card">
+                <h2>Mission</h2>
+                <p>To provide quality education to its students through well-trained mentor-focused staff enabled by reliable college facilities and efficient processes anchored on the values of integrity, innovation and level of excellence.</p>
+            </div>
+        
+            <div class="mvh-card">
+                <h2>Vision</h2>
+                <p>By 2020 we will be the preferred college center of excellence in the Philippines providing personalized and compassionate instruction of the highest standard.</p>
+            </div>
+        
+            <div class="mvh-card">
+                <h2>Datamex Hymn</h2>
+                <p>DATAMEX Computer College</p>
+                <p>Our Alma Mater we are one</p>
+                <p>We glorify thy name</p>
+                <p>We sing to you our praises</p>
+                <p>DATAMEX Computer College</p>
+                <p>We thank you for the goals</p>
+                <p>We have fulfilled</p>
+                <p>And for what we are today</p>
+                <p>DATAMEX forever</p>
+                <br>
+                <p>We always want to be with you</p>
+                <p>To always be together</p>
+                <p>The knowledge that you gave us</p>
+                <p>Will be marked in history</p>
+            </div>
+        </div>
+
+        <script>
+            function toggleSidebar() {
+                let sidebar = document.querySelector(".sidebar");
+                let toggleBtn = document.querySelector(".toggle-btn");
+                sidebar.classList.toggle("hidden");
+                toggleBtn.textContent = sidebar.classList.contains("hidden") ? ">" : "^";
+            }
+    
+            var modal = document.getElementById("imageModal");
+    
+    
+            var images = document.querySelectorAll(".image-box img");
+            var modalImg = document.getElementById("img01");
+    
+            images.forEach(img => {
+                img.onclick = function(){
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            });
+    
+    
+            var span = document.getElementsByClassName("close")[0];
+    
+    
+            span.onclick = function() {
+              modal.style.display = "none";
+            }
+    
+    
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+    
+        </script>
+</body>
+</html>

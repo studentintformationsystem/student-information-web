@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('nBG.png');
+    background-size: 100%;
+    align-items: center;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.first-layer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+    text-align: center;
+}
+
+.student-picture {
+    margin-top: 10px;
+}
+
+.student-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.student-info h2 {
+    font-size: 24px;
+    color: #4E1D26;
+}
+
+.student-info p {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.second-layer {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.second-layer h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.second-layer p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.third-layer {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.third-layer h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.third-layer p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 20px;  
+}
+
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4E1D26;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #6A2C38;
+}
+

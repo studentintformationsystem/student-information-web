@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information</title>
+    <link rel="icon" type="image/jpg" href="datamex.jpg">
+    <link rel="stylesheet" type="text/css" href="StInfo.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="datamex.jpg" alt="datamex logo">
+        <h2>DCSA Caloocan Branch</h2>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="studentInfo.html">Student Info</a>
+        <a href="annouce.html">Announcement</a>
+        <a href="contact.html">Contact</a>
+        <a href="login1.html">Log Out</a>
+    </div>
+    <button class="toggle-btn" onclick="toggleSidebar()">^</button>
+    <div class="content">
+        <h2>Student Management System</h2>
+        <input type="text" id="name" placeholder="Enter Student Name">
+        <input type="number" id="age" placeholder="Enter Age">
+        <input type="date" id="birthday" placeholder="Enter Birthday">
+        <input type="text" id="address" placeholder="Enter Address">
+        <input type="text" id="course" placeholder="Enter Course">
+        <button onclick="addStudent()">Add Student</button>
+        
+        <h3>Student List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Birthday</th>
+                    <th>Address</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="student-list"></tbody>
+        </table>
+    </div>
+    <script>
+            function toggleSidebar() {
+        let sidebar = document.querySelector(".sidebar");
+        let content = document.querySelector(".content");
+
+        if (sidebar.classList.contains("hidden")) {
+            sidebar.classList.remove("hidden");
+            content.classList.remove("expanded");
+        } else {
+            sidebar.classList.add("hidden");
+            content.classList.add("expanded");
+        }
+
+        }
+        function getStudents() {
+            return JSON.parse(localStorage.getItem("students")) || [];
+        }
+
+        function saveStudents(students) {
+            localStorage.setItem("students", JSON.stringify(students));
+        }
+
+        function addStudent() {
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let birthday = document.getElementById("birthday").value;
+            let address = document.getElementById("address").value;
+            let course = document.getElementById("course").value;
+            
+            if (!name || !age || !birthday || !address || !course) {
+                alert("Please fill in all fields");
+                return;
+            }
+            
+            let students = getStudents();
+            students.push({ name, age, birthday, address, course });
+            students.sort((a, b) => a.name.localeCompare(b.name));
+            saveStudents(students);
+            displayStudents();
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("birthday").value = "";
+            document.getElementById("address").value = "";
+            document.getElementById("course").value = "";
+        }
+
+        function displayStudents() {
+            let students = getStudents();
+            let studentList = document.getElementById("student-list");
+            studentList.innerHTML = students.map((student, index) => 
+                `<tr>
+                    <td>${student.name}</td>
+                    <td>${student.age}</td>
+                    <td>${student.birthday}</td>
+                    <td>${student.address}</td>
+                    <td>${student.course}</td>
+                    <td><button onclick="deleteStudent(${index})">Delete</button></td>
+                </tr>`
+            ).join('');
+        }
+
+        function deleteStudent(index) {
+            let students = getStudents();
+            students.splice(index, 1);
+            saveStudents(students);
+            displayStudents();
+        }
+
+        document.addEventListener("DOMContentLoaded", displayStudents);
+    </script>
+</body>
+</html>

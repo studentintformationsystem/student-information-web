@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information</title>
+    <link rel="icon" type="image/jpg" href="datamex.jpg">
+    <link rel="stylesheet" type="text/css" href="bicodo.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="datamex.jpg" alt="datamex logo">
+        <h2>DCSA Caloocan Branch</h2>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="student.html">Student Info</a>
+        <a href="annouce.html">Announcement</a>
+        <a href="contact.html">Contact</a>
+        <a href="login1.html">Log Out</a>
+    </div>
+    <button class="toggle-btn" onclick="toggleSidebar()">^</button>
+    <div class="form-container">
+        <h2>REGISTRATION FORM</h2>
+        <form id="registrationForm">
+            <div class="form-group inline">
+                <div>
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="firstNameError"></span>
+                </div>
+                <div>
+                    <label for="middleName">Middle Name</label>
+                    <input type="text" id="middleName" name="middleName">
+                </div>
+                <div>
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" name="surname" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="surnameError"></span>
+                </div>
+            </div>
+            <div class="form-group inline">
+                <div>
+                    <label for="studentId">StudentID</label>
+                    <input type="text" id="studentId" name="studentId" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="studentIdError"></span>
+                </div>
+                <div>
+                    <label for="course">Course</label>
+                    <input type="text" id="course" name="course" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="courseError"></span>
+                </div>
+                <div>
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required oncopy="return false;" onpaste="return false;" >
+                    <span class="error" id="ageError"></span>
+                </div>
+            </div>
+            <div class="form-group inline">
+                <div>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="phoneError"></span>
+                </div>
+                <div>
+                    <label for="birthDate">Birth Date</label>
+                    <input type="date" id="birthDate" name="birthDate" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="birthDateError"></span>
+                </div>
+                <div>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required oncopy="return false;" onpaste="return false;">
+                    <span class="error" id="emailError"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>ADDRESS</label>
+                <div class="form-group inline">
+                    <input type="text" id="houseNumber" name="houseNumber" placeholder="House Number" required>
+                    <input type="text" id="street" name="street" placeholder="Street" required>
+                    <input type="text" id="brgy" name="brgy" placeholder="Brgy." required>
+                </div>
+                <div class="form-group inline">
+                    <input type="text" id="city" name="city" placeholder="City" required>
+                    <input type="text" id="postal" name="postal" placeholder="Postal Code" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>IN CASE OF EMERGENCY</label>
+                <div class="form-group inline">
+                    <input type="text" id="guardianName" name="guardianName" placeholder="Guardian Name" required>
+                    <input type="tel" id="guardianPhone" name="guardianPhone" placeholder="Phone Number" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>GUARDIAN ADDRESS</label>
+                <div class="form-group inline">
+                    <input type="text" id="guardianHouseNumber" name="guardianHouseNumber" placeholder="House Number" required>
+                    <input type="text" id="guardianStreet" name="guardianStreet" placeholder="Street" required>
+                    <input type="text" id="guardianBrgy" name="guardianBrgy" placeholder="Brgy." required>
+                </div>
+                <div class="form-group inline">
+                    <input type="text" id="guardianCity" name="guardianCity" placeholder="City" required>
+                    <input type="text" id="guardianPostal" name="guardianPostal" placeholder="Postal" required>
+                </div>
+            </div>
+            <button type="submit">REGISTER</button>
+            <button type="button" id="showIdButton" style="display: none;">Show ID</button>
+        </form>
+        
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.querySelector(".sidebar");
+            let toggleBtn = document.querySelector(".toggle-btn");
+            sidebar.classList.toggle("hidden");
+            toggleBtn.textContent = sidebar.classList.contains("hidden") ? ">" : "^";
+        }
+document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            let userData = {};
+            formData.forEach((value, key) => {
+                userData[key] = value;
+            });
+
+            let storedData = JSON.parse(localStorage.getItem("studentInfo")) || [];
+            storedData.push(userData);
+            localStorage.setItem("studentInfo", JSON.stringify(storedData));
+            alert("Data saved successfully!");
+            displayStoredData();
+        });
+
+        function displayStoredData() {
+    let studentTable = document.getElementById("studentTable").getElementsByTagName('tbody')[0];
+    studentTable.innerHTML = "";
+    let storedData = JSON.parse(localStorage.getItem("studentInfo")) || [];
+
+    storedData.forEach(student => {
+        let row = studentTable.insertRow();
+
+        let fullName = `${student.firstName || ''} ${student.middleName || ''} ${student.surname || ''}`.replace(/\s+/g, ' ').trim();
+        let fullAddress = `${student.houseNumber || ''}, ${student.street || ''}, ${student.brgy || ''}, ${student.city || ''}, ${student.postal || ''}`.replace(/\s+/g, ' ').trim();
+
+        row.insertCell(0).textContent = fullName;
+        row.insertCell(1).textContent = student.studentId;
+        row.insertCell(2).textContent = student.course;
+        row.insertCell(3).textContent = student.age;
+        row.insertCell(4).textContent = student.phone;
+        row.insertCell(5).textContent = fullAddress;
+    });
+}
+    ['studentId', 'email'].forEach(id => {
+        const input = document.getElementById(id);
+        input.addEventListener('copy', function(e) { e.preventDefault(); });
+        input.addEventListener('paste', function(e) { e.preventDefault(); });
+    });
+
+        window.onload = function() {
+            displayStoredData();
+        };
+    </script>
+</body>
+</html>

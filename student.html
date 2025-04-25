@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stored Student Data</title>
+    <link rel="icon" type="image/jpg" href="datamex.jpg">
+    <link rel="stylesheet" type="text/css" href="student.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Stored Student Data</h2>
+
+        <div id="searchContainer">
+            <input type="text" id="searchInput" placeholder="Search by name or ID..." onkeyup="filterData()">
+        </div>
+
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>StudentID</th>
+                    <th>Course</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <a href="home.html" class="back-home">Back to Home</a>
+        <button onclick="clearLocalStorage()">Clear</button>
+    </div>
+
+    <script>
+        function displayStoredData() {
+            let studentTable = document.getElementById("studentTable").getElementsByTagName('tbody')[0];
+            studentTable.innerHTML = "";
+            let storedData = JSON.parse(localStorage.getItem("studentInfo")) || [];
+
+            storedData.forEach(student => {
+                let row = studentTable.insertRow();
+                let fullName = `${student.firstName || ''} ${student.middleName || ''} ${student.surname || ''}`.replace(/\s+/g, ' ').trim();
+                let fullAddress = `${student.houseNumber || ''}, ${student.street || ''}, ${student.brgy || ''}, ${student.city || ''}, ${student.postal || ''}`.replace(/\s+/g, ' ').trim();
+
+                row.insertCell(0).textContent = fullName;
+                row.insertCell(1).textContent = student.studentId;
+                row.insertCell(2).textContent = student.course;
+                row.insertCell(3).innerHTML = `<a href="details.html?id=${student.studentId}" class="view-link">View Details</a>`;
+
+
+            });
+        }
+
+        function filterData() {
+            let searchQuery = document.getElementById("searchInput").value.toLowerCase();
+            let studentTable = document.getElementById("studentTable").getElementsByTagName('tbody')[0];
+            let rows = studentTable.getElementsByTagName('tr');
+            let storedData = JSON.parse(localStorage.getItem("studentInfo")) || [];
+
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let fullName = row.cells[0].textContent.toLowerCase();
+                let studentId = row.cells[1].textContent.toLowerCase();
+
+                if (fullName.includes(searchQuery) || studentId.includes(searchQuery)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function clearLocalStorage() {
+            localStorage.clear();
+            console.log("Local storage cleared!");
+            displayStoredData(); 
+        }
+
+        window.onload = displayStoredData;
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information Management System</title>
+    <link rel="icon" type="image/jpg" href="datamex.jpg">
+    <link rel="stylesheet" type="text/css" href="login1.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="datamex.jpg" alt="Logo">
+            <h2>Datamex College of St. Adeline<br><span class="centered-text">CALOOCAN</span></h2>
+            
+            <!-- Initially visible signup form -->
+            <div class="form-container" id="signup">
+                <input type="text" id="signupUser" placeholder="Username (minimum 8 characters)">
+                <input type="password" id="signupPass" placeholder="Password (minimum 8 characters)">
+                <input type="password" id="confirmPass" placeholder="Confirm Password">
+                <button onclick="signUp()">SIGN UP</button>
+                <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+            </div>
+            
+            <!-- Initially hidden login form -->
+            <div class="form-container hidden" id="login">
+                <input type="text" id="loginUser" placeholder="Username">
+                <input type="password" id="loginPass" placeholder="Password">
+                <button onclick="logIn()">LOG IN</button>
+                <p><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
+                <p>Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+            </div>
+        </div>
+        <div class="right">
+            <h1>YOUR PATH TO SUCCESS STARTS HERE.</h1>
+            <br>
+        </div>
+    </div>
+
+    <div id="loadingScreen">
+        <div id="loadingContent">
+            <img src="datamex.jpg" alt="Logo"> 
+            <div id="barContainer">
+                <div id="bar"></div>
+            </div>
+            <div id="loadingText">
+                <h2>Loading...</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add this to your existing script
+document.getElementById('loginPass').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        logIn(); // Call the login function when Enter is pressed
+    }
+});
+
+        function showLogin() {
+            document.getElementById("signup").classList.add("hidden");
+            document.getElementById("login").classList.remove("hidden");
+        }
+
+        function showSignup() {
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("signup").classList.remove("hidden");
+        }
+
+        function logIn() {
+    let user = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPass").value;
+
+    if (user.length < 8 || pass.length < 8) {
+        alert("Username and Password must be at least 8 characters long.");
+        return;
+    }
+
+    document.getElementById('loadingScreen').style.display = 'block';
+
+    let width = 0;
+    let bar = document.getElementById('bar');
+
+    let loading = setInterval(function() {
+        if (width >= 100) {
+            clearInterval(loading);
+
+            // Hash the entered password
+            let hashedPass = CryptoJS.SHA256(pass).toString(CryptoJS.enc.Base64);
+
+            // Admin login check (hashed password)
+            if (user === "admin" && hashedPass === CryptoJS.SHA256("adminpassword").toString(CryptoJS.enc.Base64)) {
+                alert("Admin login successful!");
+                window.location.href = "admin_dashboard.html"; // Redirect to admin dashboard
+            } else if (localStorage.getItem(user) === hashedPass) {
+                alert("Login successful!");
+                window.location.href = "home.html"; // Redirect to normal user home page
+            } else {
+                alert("Invalid credentials.");
+            }
+        } else {
+            width++;
+            bar.style.width = width + '%';
+        }
+    }, 20);
+}
+
+function signUp() {
+    let user = document.getElementById("signupUser").value.trim();
+    let pass = document.getElementById("signupPass").value.trim();
+    let confirmPass = document.getElementById("confirmPass").value.trim();
+
+    if (!user || !pass || !confirmPass) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    if (user.length < 8) {
+        alert("Username must be at least 8 characters long.");
+        return;
+    }
+
+    if (pass.length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return;
+    }
+
+    if (pass !== confirmPass) {
+        alert("Passwords do not match. Please try again.");
+        return;
+    }
+
+    if (user === "admin123") {
+        alert("Admin account cannot be created through the sign-up form.");
+        return;
+    }
+
+    // Hash the password
+    let hashedPass = CryptoJS.SHA256(pass).toString(CryptoJS.enc.Base64);
+
+    // Store the hashed password
+    localStorage.setItem(user, hashedPass);
+    alert("Sign up successful!");
+
+    document.getElementById("signupUser").value = "";
+    document.getElementById("signupPass").value = "";
+    document.getElementById("confirmPass").value = "";
+
+    showLogin();
+}
+
+        function forgotPassword() {
+            let user = prompt("Enter your username:");
+            if (localStorage.getItem(user)) {
+                alert("Your password is: " + localStorage.getItem(user));
+            } else {
+                alert("Username not found.");
+            }
+        }
+
+        function clearLocalStorage() {
+            localStorage.clear();
+            console.log("Local storage cleared!");
+        }
+    </script>
+</body>
+</html>

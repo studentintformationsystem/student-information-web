@@ -1,0 +1,82 @@
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="RG.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Student Registration Form</h2>
+
+        <form action="submit_registration.php" method="POST">
+            <div class="layer first-layer">
+                <div class="student-picture">
+                    <label for="student-picture">Upload Picture:</label>
+                    <input type="file" id="student-picture" name="student_picture" accept="image/*" required>
+                </div>
+                <div class="student-info">
+                    <label for="student-name">Student Name:</label>
+                    <input type="text" id="student-name" name="student_name" placeholder="Enter Student Name" required>
+                    
+                    <label for="student-id">ID No.:</label>
+                    <input type="text" id="student-id" name="student_id" placeholder="Enter Student ID" required>
+
+                    <label for="student-email">Email:</label>
+                    <input type="email" id="student-email" name="student_email" placeholder="Enter Email" required>
+                </div>
+            </div>
+            <div class="layer second-layer">
+                <h3>Full Student Information</h3>
+                
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter Address" required>
+
+                <label for="phone-number">Phone Number:</label>
+                <input type="text" id="phone-number" name="phone_number" placeholder="Enter Phone Number" required>
+
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" placeholder="Enter Course" required>
+
+                <label for="enrollment-date">Enrollment Date:</label>
+                <input type="date" id="enrollment-date" name="enrollment_date" required>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="layer third-layer">
+                <h3>Parent's Information</h3>
+                
+                <label for="father-name">Father's Name:</label>
+                <input type="text" id="father-name" name="father_name" placeholder="Enter Father's Name" required>
+
+                <label for="father-occupation">Father's Occupation:</label>
+                <input type="text" id="father-occupation" name="father_occupation" placeholder="Enter Father's Occupation" required>
+
+                <label for="mother-name">Mother's Name:</label>
+                <input type="text" id="mother-name" name="mother_name" placeholder="Enter Mother's Name" required>
+
+                <label for="mother-occupation">Mother's Occupation:</label>
+                <input type="text" id="mother-occupation" name="mother_occupation" placeholder="Enter Mother's Occupation" required>
+
+                <label for="contact-number">Contact Number:</label>
+                <input type="text" id="contact-number" name="contact_number" placeholder="Enter Contact Number" required>
+            </div>
+
+            <div class="button-wrapper">
+                <button type="submit" class="button">Submit Registration</button>
+            </div>
+        </form>
+        
+        <div class="button-wrapper">
+            <a href="admin.html" class="button">Back</a>
+        </div>
+    </div>
+
+</body>
+</html>
+
